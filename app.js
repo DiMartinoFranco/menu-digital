@@ -2,19 +2,36 @@ const express = require("express");
 const app = express();
 const port = process.env.PORT || 3000
 
-app.use(express.static(__dirname + "/public"));
+//conexion a base de datos
+const mongoose = require('mongoose');
+
+const user='admin';
+const pass='admin';
+const dbname='menudigital'
+const uri=`mongodb+srv://${user}:${pass}@cluster0.dklhb.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+
+
+
+mongoose.connect(uri, 
+    {useNewUrlParser: true, useUnifiedTopology: true}
+)
+
+.then(()=> console.log('Base de datos conectada'))
+.catch(e=> console.log(e));
+
+
+
 
 //motor de plantillas
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
 
-app.get("/", (req, res) => {
-    res.render("index");
-});
 
-app.get("/menuvegano", (req, res) => {
-    res.render("menuvegano");
-});
+app.use(express.static(__dirname + "/public"));
+
+
+app.use('/' , require('./router/rutasWeb'));
+app.use('/alimentos' , require('./router/alimentos'));
 
 app.use((req, res, next) => {
     // res.status(404).send("Sorry cant find that!");
