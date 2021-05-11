@@ -1,14 +1,22 @@
 const express = require("express");
 const app = express();
-const port = process.env.PORT || 3000
+
+//configuracion dotenv
+require('dotenv').config()
+
+
+const port = process.env.PORT || 3000;
+
+
+
+
 
 //conexion a base de datos
 const mongoose = require('mongoose');
 
-const user='admin';
-const pass='admin';
-const dbname='menudigital'
-const uri=`mongodb+srv://${user}:${pass}@cluster0.dklhb.mongodb.net/${dbname}?retryWrites=true&w=majority`;
+
+
+const uri=`mongodb+srv://${process.env.USER}:${process.env.PASS}@cluster0.dklhb.mongodb.net/${process.env.DBNAME}?retryWrites=true&w=majority`;
 
 
 
