@@ -1,0 +1,35 @@
+<%- include("template/cabecera", {titulo: "Detalle de mascota"}) %>
+
+<div class="container">
+    <H1>Detalle Mascota</H1>
+    <% if (error) { %>
+
+    <p><%= mensaje %></p>
+    <a href="/alimentos" class="btn btn-dark w-50">Volver a Mascotas</a>
+    <% } %> <% if (!error) { %>
+    <form id="formularioEditar" data-id="<%= alimento.id %>">
+        <input type="text" class="form-control my-2" name="nombre" id="nombreInput" value="<%= alimento.nombre %> " />
+        <input type="text" class="form-control my-2" name="descripcion" id="descripcionInput" value="<%= alimento.descripcion %> " />
+        <input type="text" class="form-control my-2" name="precio" id="precioInput" value="<%= alimento.precio %> " />
+        
+        <button 
+            class="btn btn-success w-100" 
+            type="submit">
+            Guardar
+        </button> 
+    </form>
+    
+    <button
+        class="btn btn-danger btn-sm w-25 mt-5"
+        id="btnEliminar"
+        data-id="<%= alimento.id %>"
+    >
+        Eliminar
+    </button>
+
+    <% } %>
+</div>
+
+<%- include("template/footer") %>
+
+<script src="/js/detalle.js"></script>
